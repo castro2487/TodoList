@@ -1,3 +1,5 @@
+import React from "react";
+
 const TodoForm = ({ addTodo }) => {
   // Input tracker
   let input;
