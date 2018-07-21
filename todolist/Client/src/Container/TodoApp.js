@@ -11,14 +11,24 @@ export default class TodoApp extends Component {
       data: []
     };
   }
+
+  componentDidMount() {
+    // Make HTTP reques with Axios
+    axios.get(this.apiUrl).then(res => {
+      // Set state with result
+      this.setState({ data: res.data });
+    });
+  }
+
   // Add todo handler
   addTodo(val) {
     // Assemble data
-    const todo = { text: val, id: window.id++ };
+    const todo = { text: val };
     // Update data
-    this.state.data.push(todo);
-    // Update state
-    this.setState({ data: this.state.data });
+    axios.post(this.apiUrl, todo).then(res => {
+      this.state.data.push(res.data);
+      this.setState({ data: this.state.data });
+    });
   }
   // Handle remove
   handleRemove(id) {
@@ -27,7 +37,9 @@ export default class TodoApp extends Component {
       if (todo.id !== id) return todo;
     });
     // Update state with filter
-    this.setState({ data: remainder });
+    axios.delete(this.apiUrl + "/" + id).then(res => {
+      this.setState({ data: remainder });
+    });
   }
 
   render() {
