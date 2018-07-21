@@ -3,8 +3,8 @@ const mongoose = require("mongoose");
 
 const app = express();
 
-// Use Routes
-app.use("/api/users", users);
+// Use Route
+app.use("/api/todo", todo);
 
 const port = process.env.PORT || 5000;
 
